@@ -12,6 +12,7 @@ const TableHeader = styled.div`
 const TableRow = styled.div`
   padding: 5px;
   display: grid;
+  grid-template-columns: repeat(3, 1fr);
 `;
 
 const TableData = styled.div`
