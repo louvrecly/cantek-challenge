@@ -15,7 +15,8 @@ const TableHeader = styled.div`
 
 const TableRow = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  align-items: stretch;
   opacity: 0.8;
 
   &:hover {
@@ -27,6 +28,8 @@ const TableData = styled.div`
   padding: 8px;
   text-align: left;
   border-bottom: 1px solid forestgreen;
+  display: flex;
+  align-items: center;
 `;
 
 const Table: TableType = styled.div``;

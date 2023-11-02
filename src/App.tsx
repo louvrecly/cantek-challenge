@@ -10,9 +10,9 @@ const App = () => {
 
       <Page.Content>
         <TeamProvider>
-          <TeamList />
-
           <TeamMemberForm />
+
+          <TeamList />
         </TeamProvider>
       </Page.Content>
     </Page>
