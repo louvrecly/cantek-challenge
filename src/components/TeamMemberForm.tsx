@@ -4,10 +4,10 @@ import * as Yup from 'yup';
 import Section from './Section';
 import { H2 } from './Heading';
 import FormikForm from './FormikForm';
-import FormField from './FormField';
 import Button from './Button';
 import { TeamContext } from '../contexts/team';
 import { ALL_ROLES, MemberFormValues } from '../types/member';
+import FormikField from './FormikField';
 
 const initialValues: MemberFormValues = { name: '', role: 'Dev' };
 
@@ -40,20 +40,20 @@ const TeamMemberForm = () => {
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
-        <FormField
+        <FormikField
           id="name"
           name="name"
           label="Name"
           placeholder="Enter Name"
         />
 
-        <FormField id="role" name="role" label="Role" as="select">
+        <FormikField id="role" name="role" label="Role" as="select">
           {ALL_ROLES.map((role) => (
             <option key={role} value={role}>
               {role}
             </option>
           ))}
-        </FormField>
+        </FormikField>
 
         <Button type="submit" className="u-w-full">
           Save

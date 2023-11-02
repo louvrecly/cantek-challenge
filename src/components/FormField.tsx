@@ -1,33 +1,37 @@
-import { ErrorMessage, Field, FieldAttributes } from 'formik';
+import { Field } from 'formik';
 import styled from 'styled-components';
+import StyledComponent from './types';
 
-type FormFieldProps = FieldAttributes<unknown> & {
-  label: string;
+type FormFieldType = StyledComponent<HTMLDivElement> & {
+  Container: StyledComponent<HTMLDivElement>;
+  Label: StyledComponent<HTMLLabelElement>;
+  Input: StyledComponent<unknown>;
+  Error: StyledComponent<HTMLDivElement>;
 };
 
-const FieldContainer = styled.div`
+const FormField: FormFieldType = styled.div`
   position: relative;
   margin-bottom: 36px;
 `;
 
-const FieldItem = styled.div`
+const FormFieldContainer = styled.div`
   display: grid;
   grid-template-columns: 60px 1fr;
   align-items: center;
 `;
 
-const FieldLabel = styled.label`
+const FormFieldLabel = styled.label`
   font-weight: bold;
 `;
 
-const FieldInput = styled(Field)`
+const FormFieldInput = styled(Field)`
   padding: 6px 12px;
   min-width: 0;
   border: 1px solid forestgreen;
   border-radius: 6px;
 `;
 
-const FieldError = styled.div`
+const FormFieldError = styled.div`
   position: absolute;
   inset: 100% 0 auto;
   font-size: 12px;
@@ -35,20 +39,9 @@ const FieldError = styled.div`
   text-align: end;
 `;
 
-const FormField = ({ id, name, label, ...props }: FormFieldProps) => {
-  return (
-    <FieldContainer>
-      <FieldItem>
-        <FieldLabel htmlFor={id}>{label}:</FieldLabel>
-
-        <FieldInput id={id} name={name} {...props} />
-      </FieldItem>
-
-      <ErrorMessage name={name}>
-        {(message) => <FieldError>{message}</FieldError>}
-      </ErrorMessage>
-    </FieldContainer>
-  );
-};
+FormField.Container = FormFieldContainer;
+FormField.Label = FormFieldLabel;
+FormField.Input = FormFieldInput;
+FormField.Error = FormFieldError;
 
 export default FormField;
