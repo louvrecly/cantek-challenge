@@ -1,7 +1,22 @@
-import { Formik } from 'formik';
 import { useContext } from 'react';
+import { FormikHelpers } from 'formik';
 import * as Yup from 'yup';
+import Section from './Section';
+import { H2 } from './Heading';
+import FormikForm from './FormikForm';
+import FormField from './FormField';
+import Button from './Button';
 import { TeamContext } from '../contexts/team';
+
+type TeamMemberFormValues = {
+  name: string;
+  role: string;
+};
+
+const validationSchema = Yup.object<TeamMemberFormValues>({
+  name: Yup.string().required(),
+  role: Yup.string().required(),
+});
 
 const TeamMemberForm = () => {
   const { maxId, setMembers } = useContext(TeamContext);
@@ -10,58 +25,40 @@ const TeamMemberForm = () => {
     setMembers((members) => [...members, { name, role, id: maxId + 1 }]);
   };
   return (
-    <>
-      <div>
-        <Formik
-          initialValues={{ name: '', role: '' }}
-          validationSchema={Yup.object({
-            name: Yup.string().required(),
-            role: Yup.string(),
-          })}
-          onSubmit={(values, { setSubmitting }) => {
-            onAddItem(values.name, values.role);
-            setSubmitting(false);
-          }}
-        >
-          {({
-            values,
-            errors,
-            touched,
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            isSubmitting,
-            /* and other goodies */
-          }) => (
-            <form onSubmit={handleSubmit}>
-              <label>Name: </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.name}
-              />
-              {errors.name && touched.name}
-              <label>Role: </label>
-              <input
-                type="text"
-                id="role"
-                name="role"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.role}
-              />
-              {errors.role && touched.role}
-              <button type="submit" disabled={isSubmitting}>
-                Submit
-              </button>
-            </form>
-          )}
-        </Formik>
-      </div>
-    </>
+    <Section>
+      <H2>Member Form</H2>
+
+      <FormikForm
+        initialValues={{ name: '', role: '' }}
+        validationSchema={validationSchema}
+        onSubmit={(
+          values: Record<string, unknown>,
+          { setSubmitting }: FormikHelpers<Record<string, unknown>>,
+        ) => {
+          const { name, role } = values as TeamMemberFormValues;
+          onAddItem(name, role);
+          setSubmitting(false);
+        }}
+      >
+        <FormField
+          id="name"
+          name="name"
+          label="Name"
+          placeholder="Enter Name"
+        />
+
+        <FormField
+          id="role"
+          name="role"
+          label="Role"
+          placeholder="Enter Role"
+        />
+
+        <Button type="submit" className="u-w-full">
+          Save
+        </Button>
+      </FormikForm>
+    </Section>
   );
 };
 export default TeamMemberForm;
