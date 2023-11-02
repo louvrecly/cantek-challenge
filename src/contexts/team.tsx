@@ -7,30 +7,9 @@ export type TeamContextValue = {
   setMembers: Dispatch<SetStateAction<Member[]>>;
 };
 
-export const initialValue: TeamContextValue = {
-  members: [
-    {
-      id: 1,
-      name: 'Louvre',
-      role: 'Dev',
-    },
-    {
-      id: 2,
-      name: 'Charlene',
-      role: 'Dev',
-    },
-    {
-      id: 3,
-      name: 'Eric',
-      role: 'Dev',
-    },
-    {
-      id: 4,
-      name: 'Calvin',
-      role: 'Dev',
-    },
-  ],
-  maxId: 4,
+const initialValue: TeamContextValue = {
+  members: [],
+  maxId: 0,
   setMembers: () => null,
 };
 
