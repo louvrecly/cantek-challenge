@@ -6,7 +6,7 @@ import TeamMemberForm from './components/TeamMemberForm';
 const App = () => {
   return (
     <Page>
-      <Page.Header>Team Manager</Page.Header>
+      <Page.Header>🏅 Team Manager</Page.Header>
 
       <Page.Content>
         <TeamProvider>

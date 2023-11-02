@@ -6,9 +6,10 @@ import { TeamContext } from '../contexts/team';
 
 const TeamList: React.FC = () => {
   const { members } = useContext(TeamContext);
+
   return (
     <Section>
-      <H2>TeamList</H2>
+      <H2>🚩 Team List</H2>
 
       <Table>
         <Table.Row>

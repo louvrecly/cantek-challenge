@@ -26,7 +26,7 @@ const TeamMemberForm = () => {
   };
   return (
     <Section>
-      <H2>Member Form</H2>
+      <H2>📜 Member Form</H2>
 
       <FormikForm
         initialValues={{ name: '', role: '' }}
