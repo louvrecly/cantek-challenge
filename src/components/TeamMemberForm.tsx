@@ -7,13 +7,11 @@ import FormikForm from './FormikForm';
 import FormField from './FormField';
 import Button from './Button';
 import { TeamContext } from '../contexts/team';
+import { ALL_ROLES, MemberFormValues, Role } from '../types/member';
 
-type TeamMemberFormValues = {
-  name: string;
-  role: string;
-};
+const initialValues: MemberFormValues = { name: '', role: 'Dev' };
 
-const validationSchema = Yup.object<TeamMemberFormValues>({
+const validationSchema = Yup.object<MemberFormValues>({
   name: Yup.string().required(),
   role: Yup.string().required(),
 });
@@ -21,24 +19,27 @@ const validationSchema = Yup.object<TeamMemberFormValues>({
 const TeamMemberForm = () => {
   const { maxId, setMembers } = useContext(TeamContext);
 
-  const onAddItem = (name: string, role: string) => {
+  const onAddItem = (name: string, role: Role) => {
     setMembers((members) => [...members, { name, role, id: maxId + 1 }]);
   };
+
+  const onSubmit = (
+    values: Record<string, unknown>,
+    { setSubmitting }: FormikHelpers<Record<string, unknown>>,
+  ) => {
+    const { name, role } = values as MemberFormValues;
+    onAddItem(name, role);
+    setSubmitting(false);
+  };
+
   return (
     <Section>
       <H2>📜 Member Form</H2>
 
       <FormikForm
-        initialValues={{ name: '', role: '' }}
+        initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={(
-          values: Record<string, unknown>,
-          { setSubmitting }: FormikHelpers<Record<string, unknown>>,
-        ) => {
-          const { name, role } = values as TeamMemberFormValues;
-          onAddItem(name, role);
-          setSubmitting(false);
-        }}
+        onSubmit={onSubmit}
       >
         <FormField
           id="name"
@@ -47,12 +48,13 @@ const TeamMemberForm = () => {
           placeholder="Enter Name"
         />
 
-        <FormField
-          id="role"
-          name="role"
-          label="Role"
-          placeholder="Enter Role"
-        />
+        <FormField id="role" name="role" label="Role" as="select">
+          {ALL_ROLES.map((role) => (
+            <option key={role} value={role}>
+              {role}
+            </option>
+          ))}
+        </FormField>
 
         <Button type="submit" className="u-w-full">
           Save
