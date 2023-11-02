@@ -13,6 +13,7 @@ const FieldContainer = styled.div`
 const FieldItem = styled.div`
   display: grid;
   grid-template-columns: 60px 1fr;
+  align-items: center;
 `;
 
 const FieldLabel = styled.label`
@@ -26,7 +27,7 @@ const FieldInput = styled(Field)`
   border-radius: 6px;
 `;
 
-const Tooltip = styled.div`
+const FieldError = styled.div`
   position: absolute;
   inset: 100% 0 auto;
   font-size: 12px;
@@ -44,7 +45,7 @@ const FormField = ({ id, name, label, ...props }: FormFieldProps) => {
       </FieldItem>
 
       <ErrorMessage name={name}>
-        {(message) => <Tooltip>{message}</Tooltip>}
+        {(message) => <FieldError>{message}</FieldError>}
       </ErrorMessage>
     </FieldContainer>
   );
