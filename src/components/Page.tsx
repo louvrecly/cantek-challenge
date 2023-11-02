@@ -10,12 +10,8 @@ type PageType = StyledComponent<HTMLDivElement> & {
 const Page: PageType = styled.div`
   min-width: 100%;
   min-height: 100vh;
-  background-image: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 0.7),
-    rgba(0, 0, 0, 0.5),
-    rgba(0, 0, 0, 0.7)
-  );
+  background-color: gray;
+  background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
 `;
 
 const PageHeader: StyledComponent<StyledComponent<HTMLHeadingElement>> = styled(

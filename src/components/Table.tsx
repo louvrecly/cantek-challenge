@@ -16,6 +16,11 @@ const TableHeader = styled.div`
 const TableRow = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  opacity: 0.8;
+
+  &:hover {
+    opacity: 1;
+  }
 `;
 
 const TableData = styled.div`
