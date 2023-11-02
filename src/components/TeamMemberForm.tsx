@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useCallback, useContext } from 'react';
 import { FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import Section from './Section';
@@ -7,7 +7,7 @@ import FormikForm from './FormikForm';
 import FormField from './FormField';
 import Button from './Button';
 import { TeamContext } from '../contexts/team';
-import { ALL_ROLES, MemberFormValues, Role } from '../types/member';
+import { ALL_ROLES, MemberFormValues } from '../types/member';
 
 const initialValues: MemberFormValues = { name: '', role: 'Dev' };
 
@@ -19,18 +19,17 @@ const validationSchema = Yup.object<MemberFormValues>({
 const TeamMemberForm = () => {
   const { maxId, setMembers } = useContext(TeamContext);
 
-  const onAddItem = (name: string, role: Role) => {
-    setMembers((members) => [...members, { name, role, id: maxId + 1 }]);
-  };
-
-  const onSubmit = (
-    values: Record<string, unknown>,
-    { setSubmitting }: FormikHelpers<Record<string, unknown>>,
-  ) => {
-    const { name, role } = values as MemberFormValues;
-    onAddItem(name, role);
-    setSubmitting(false);
-  };
+  const onSubmit = useCallback(
+    (
+      values: Record<string, unknown>,
+      { setSubmitting }: FormikHelpers<Record<string, unknown>>,
+    ) => {
+      const { name, role } = values as MemberFormValues;
+      setMembers((members) => [...members, { name, role, id: maxId + 1 }]);
+      setSubmitting(false);
+    },
+    [maxId, setMembers],
+  );
 
   return (
     <Section>
